@@ -1,11 +1,6 @@
 from yt_dlp import YoutubeDL
 
-# Função que baixa os vídeos
-def baixar_videos(urls):
-    with YoutubeDL() as ydl:
-        ydl.download(urls)
-
-#Função que organiza as urls digitadas pelo usuário
+# Função que pede as urls e organiza elas em uma lista
 def organizar_urls():
     # Lista que vai receber as urls
     urls = []
@@ -29,6 +24,17 @@ def organizar_urls():
     # Devolve a lista com as urls
     return urls
 
+# Função que baixa os vídeos
+def baixar_vídeos(urls):
+    # Cria um dicionário que salva onde deve ser salvo e o nome do arquivo
+    config = {
+        'outtmpl': 'downloads/%(title)s.%(ext)s'
+    }
+
+    # Baixa os vídeos com base nas configurações
+    with YoutubeDL(config) as ydl:
+        ydl.download(urls)
+
 # Roda o programa
 urls = organizar_urls()
-baixar_videos(urls)
+baixar_vídeos(urls)
