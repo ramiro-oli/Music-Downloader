@@ -25,16 +25,22 @@ def organizar_urls():
     return urls
 
 # Função que baixa os vídeos
-def baixar_vídeos(urls):
-    # Cria um dicionário que salva onde deve ser salvo e o nome do arquivo
+def baixar_videos(urls):
+    # Cria um dicionário que determina onde deve ser salvo e o nome do arquivo
     config = {
         'outtmpl': 'downloads/%(title)s.%(ext)s'
     }
 
-    # Baixa os vídeos com base nas configurações
-    with YoutubeDL(config) as ydl:
-        ydl.download(urls)
+    # Percorre cada url que o usuário mandou
+    for url in urls:
+        # Tenta baixar
+        try:
+            with YoutubeDL(config) as ydl:
+                ydl.download([url])
+        # Caso não consiga baixar
+        except Exception:
+            print("Erro ao baixar")
 
 # Roda o programa
 urls = organizar_urls()
-baixar_vídeos(urls)
+baixar_videos(urls)
