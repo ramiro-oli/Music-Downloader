@@ -26,9 +26,14 @@ def organizar_urls():
 
 # Função que baixa os vídeos
 def baixar_videos(urls):
-    # Cria um dicionário que determina onde deve ser salvo e o nome do arquivo
+    # Dicionário que determina configurações do arquivo
     config = {
-        'outtmpl': 'downloads/%(title)s.%(ext)s'
+        'outtmpl': 'downloads/%(title)s.%(ext)s',
+        'postprocessors': [{
+            'key': 'FFmpegExtractAudio',
+            'preferredcodec': 'mp3',
+            'preferredquality': '192'
+        }]
     }
 
     # Percorre cada url que o usuário mandou
